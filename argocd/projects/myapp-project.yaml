@@ -1,18 +1,18 @@
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
-  name: myapp-stack
+  name: myapp-project
   namespace: argocd
   labels:
     stack: myapp
     manager: argocd
 spec:
-  description: Project for MyApp tech stack (Nginx, Redis, Go)
+  description: Project for MyApp
   sourceRepos:
-    - '*'
+    - "*"
   destinations:
-    - namespace: '*'
+    - namespace: "*"
       server: https://kubernetes.default.svc
   clusterResourceWhitelist:
-    - group: '*'
-      kind: '*'
+    - group: "*"
+      kind: "*"
