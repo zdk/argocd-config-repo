@@ -1,0 +1,44 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: myapp-techstack-appset
+  namespace: argocd
+  labels:
+    stack: myapp
+    manager: argocd
+spec:
+  generators:
+    - matrix:
+        generators:
+          - list:
+              elements:
+                - environment: sit
+                  url: https://kubernetes.default.svc
+                - environment: uat
+                  url: https://kubernetes.default.svc
+          - list:
+              elements:
+                - component: nginx
+                - component: redis
+                - component: go-app
+  template:
+    metadata:
+      name: "myapp-{{environment}}-{{component}}"
+      labels:
+        stack: myapp
+        environment: "{{environment}}"
+        component: "{{component}}"
+        manager: argocd
+    spec:
+      project: myapp-techstack
+      source:
+        repoURL: https://github.com/zdk/argocd-config-repo.git
+        targetRevision: HEAD
+        path: apps/myapp/{{environment}}/{{component}}
+      destination:
+        server: "{{url}}"
+        namespace: myapp-{{environment}}
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
