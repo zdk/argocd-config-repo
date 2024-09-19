@@ -20,7 +20,7 @@ spec:
               elements:
                 - component: nginx
                 - component: redis
-                - component: go-app
+                - component: backend
   template:
     metadata:
       name: "myapp-{{environment}}-{{component}}"
