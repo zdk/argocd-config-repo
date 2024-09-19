@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: myapp-techstack-appset
+  name: myapp-appset
   namespace: argocd
   labels:
     stack: myapp
@@ -30,7 +30,7 @@ spec:
         component: "{{component}}"
         manager: argocd
     spec:
-      project: myapp-techstack
+      project: myapp-project
       source:
         repoURL: https://github.com/zdk/argocd-config-repo.git
         targetRevision: HEAD
