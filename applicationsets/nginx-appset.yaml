@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: nginx-appset
+  namespace: argocd
+spec:
+  generators:
+    - list:
+        elements:
+          - cluster: in-cluster
+            url: https://kubernetes.default.svc
+            environment: sit
+  template:
+    metadata:
+      name: "nginx-{{environment}}"
+    spec:
+      project: nginx-project
+      source:
+        repoURL: https://github.com/zdk/argocd-config-repo.git
+        targetRevision: HEAD
+        path: nginx/{{environment}}
+      destination:
+        server: "{{url}}"
+        namespace: nginx-{{environment}}
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
