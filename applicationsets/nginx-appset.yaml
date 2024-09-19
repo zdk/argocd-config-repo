@@ -18,7 +18,7 @@ spec:
       source:
         repoURL: https://github.com/zdk/argocd-config-repo.git
         targetRevision: HEAD
-        path: nginx/{{environment}}
+        path: apps/nginx/{{environment}}
       destination:
         server: "{{url}}"
         namespace: nginx-{{environment}}
