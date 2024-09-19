@@ -3,13 +3,16 @@ kind: AppProject
 metadata:
   name: nginx-project
   namespace: argocd
+  labels:
+    app: nginx
+    manager: argocd
 spec:
   description: Project for Nginx deployments
   sourceRepos:
-    - '*'
+    - "*"
   destinations:
-    - namespace: '*'
+    - namespace: "*"
       server: https://kubernetes.default.svc
   clusterResourceWhitelist:
-    - group: '*'
-      kind: '*'
+    - group: "*"
+      kind: "*"

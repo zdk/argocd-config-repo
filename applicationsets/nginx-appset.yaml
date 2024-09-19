@@ -3,6 +3,9 @@ kind: ApplicationSet
 metadata:
   name: nginx-appset
   namespace: argocd
+  labels:
+    app: nginx
+    manager: argocd
 spec:
   generators:
     - list:
